@@ -6,6 +6,7 @@
 #include <time.h> 
 #include <algorithm> 
 #include <math.h>    
+#include <map>
 #include <iterator> 
 #include <vector>  //for the vector class
 #include <sstream>  //for the stringstream class
@@ -25,7 +26,10 @@ Matrice :: Matrice(int nbl, int nbc, float *Vtemp){
     for(int i = 0; i < size; i++){
         vect[i] = Vtemp[i];
     }
+    //declare the point vector
 }
+
+
 //function to convert a text file to a matrix
 Matrice :: Matrice(char * base){
     //open the file
@@ -42,6 +46,26 @@ Matrice :: Matrice(char * base){
         }
     }
 }
+
+
+float Matrice :: outMatrice(char * base){
+    //open the file
+    ofstream fileOut(base);
+    //check if the file is open
+    if(fileOut.is_open()){
+        fileOut << sizeH << "   ";
+        fileOut << sizeW <<endl;
+        vect = new float[sizeH*sizeW];
+        int size = sizeH*sizeW;
+        //loop through the file
+        for(int i = 0; i < size; i++){
+            fileOut << vect[i];
+        }
+    }
+    fileOut.close();
+}
+
+
 //function to get values from the matrix
 float Matrice :: getValue(int i, int j){
     return vect[i*sizeW + j];
@@ -60,14 +84,72 @@ int Matrice :: getW(){
 }
 
 //function to classify the matrix with the bisecting k-means algorithm
-void classify(Matrice * mat, int k){
-    //declare variables
-    int sizeH = mat->getH();
-    int sizeW = mat->getW();
-    int size = sizeH*sizeW;
+cluster :: cluster(Matrice* mat, int clusterId, point centroid){
+ 
+        
+            this->clusterId = clusterId; // Assign cluster ID
+            for (int i = 0; i < centroid.getDimensions(); i++)
+        {
+            this->centroid.push_back(centroid.getVal(i));
+        }
+        this->addPoint(centroid);
+
+        void addPoint(point p){
+        p.setCluster(this->clusterId);
+        points.push_back(p);
+    }
+
+    bool removePoint(int pointId)
+    {
+        int size = points.size();
+
+        for (int i = 0; i < size; i++)
+        {
+            if (points[i].getID() == pointId)
+            {
+                points.erase(points.begin() + i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void removeAllPoints() { points.clear(); }
+
+    int getId() { return clusterId; }
+
+    Point getPoint(int pos) { return points[pos]; }
+
+    int getSize() { return points.size(); }
+
+    double getCentroidByPos(int pos) { return centroid[pos]; }
+
+    void setCentroidByPos(int pos, double val) { this->centroid[pos] = val; }
+    
+
+
+
+
+
+
+
+
+}
+
+
+struct point{
 
     
-    }
+ int getDimensions() { return dimensions; }
+
+    int getCluster() { return clusterId; }
+
+    int getID() { return pointId; }
+
+    void setCluster(int val) { clusterId = val; }
+
+    double getVal(int pos) { return values[pos]; }
+};
 
 
 

@@ -1,37 +1,57 @@
 #include <iostream>
+#include <stdlib.h>
+
+using namespace std;
 
 class Matrice {
   int sizeH, sizeW; 
   float *vect; 
   public:
     Matrice(int nbl, int nbc, float *Vtemp); //constructor
-    Matrice(char * base);     //convert a text file to a matrix
+    Matrice(char * base);     //convert a text file to a Inmatrix
+    float outMatrice(char * base);
     float getValue(int i, int j);  //get value from the matrix
     float setValue(int i, int j, float value); //set value in the matrix
     int getH();
     int getW();
-
-
 };
 
-struct Point {
-    double x, y;     // coordinates
-    int cluster;     // no default cluster
-    double minDist;  // default infinite dist to nearest cluster
+class point{
+private:
+    int pointId, clusterId;
+    int dimensions;
+    vector<double> values;
 
-    Point() : 
-        x(0.0), 
-        y(0.0),
-        cluster(-1),
-        minDist(__DBL_MAX__) {}
-        
-    Point(double x, double y) : 
-        x(x), 
-        y(y),
-        cluster(-1),
-        minDist(__DBL_MAX__) {}
-
-    double distance(Point p) {
-        return (p.x - x) * (p.x - x) + (p.y - y) * (p.y - y);
+public:
+    point(int id, int *line)
+    {
+        pointId = id;
+        values = Matrice.getValue(line);
+        dimensions = values.size();
+        clusterId = 0; // Initially not assigned to any cluster
     }
+
+    int getDimensions();
+
+    int getCluster();
+
+    int getID();
+
+    void setCluster(int val);
+
+    double getVal(int pos);
+
 };
+
+class cluster {
+    private:
+    int clusterId;
+    vector<double> centroid;
+    vector<point> points;
+    public:
+    void addPoint(point p);  
+        
+        
+        
+};
+
