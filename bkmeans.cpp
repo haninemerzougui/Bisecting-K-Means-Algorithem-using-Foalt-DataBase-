@@ -10,7 +10,7 @@
 #include <iterator> 
 #include <vector>  //for the vector class
 #include <sstream>  //for the stringstream class
-#define N 6 //number of clusters
+
 
 using namespace std;
 //function to create matrix
@@ -67,11 +67,13 @@ float Matrice :: outMatrice(char * base){
 
 
 //function to get values from the matrix
-float Matrice :: getValue(int i, int j){
+float Matrice :: getValue(float *vect){
+    int i,j;
     return vect[i*sizeW + j];
 }
 //function to set values in the matrix
-float Matrice :: setValue(int i, int j, float value){
+float Matrice :: setValue(float *value){
+    int i, j;
     return vect[i*sizeW + j];
 }
 //function to get sizeH
@@ -84,7 +86,7 @@ int Matrice :: getW(){
 }
 
 //function to classify the matrix with the bisecting k-means algorithm
-cluster :: cluster(Matrice* mat, int clusterId, point centroid){
+cluster :: cluster(int clusterId, point centroid){
  
         
             this->clusterId = clusterId; // Assign cluster ID
@@ -141,6 +143,7 @@ cluster :: cluster(Matrice* mat, int clusterId, point centroid){
 point :: point(int id, int *line){
     {
         pointId = id;
+        values = getValue(line);
         dimensions = values.size();
         clusterId = 0; // Initially not assigned to any cluster
     }
@@ -160,6 +163,65 @@ point :: point(int id, int *line){
     double point :: getVal(int pos) {
         return values[pos]; }
 }
+
+
+
+
+void bkmeans :: clearClusters(){
+
+    for (int i = 0; i < k; i++)
+    {
+        clusters[i].removeAllPoints();
+    }
+    
+}
+
+int bkmeans :: getNearestClusterId(point point)
+    {
+        double sum = 0.0, min_dist;
+        int NearestClusterId;
+        if(dimensions==1) {
+            min_dist = abs(clusters[0].getCentroidByPos(0) - point.getVal(0));
+        }	
+        else 
+        {
+          for (int i = 0; i < dimensions; i++)
+          {
+             sum += pow(clusters[0].getCentroidByPos(i) - point.getVal(i), 2.0);
+             // sum += abs(clusters[0].getCentroidByPos(i) - point.getVal(i));
+          }
+          min_dist = sqrt(sum);
+        }
+        NearestClusterId = clusters[0].getId();
+
+        for (int i = 1; i < k; i++)
+        {
+            double dist;
+            sum = 0.0;
+            
+            if(dimensions==1) {
+                  dist = abs(clusters[i].getCentroidByPos(0) - point.getVal(0));
+            } 
+            else {
+              for (int j = 0; j < dimensions; j++)
+              {
+                  sum += pow(clusters[i].getCentroidByPos(j) - point.getVal(j), 2.0);
+                  // sum += abs(clusters[i].getCentroidByPos(j) - point.getVal(j));
+              }
+
+              dist = sqrt(sum);
+              // dist = sum;
+            }
+            if (dist < min_dist)
+            {
+                min_dist = dist;
+                NearestClusterId = clusters[i].getId();
+            }
+        }
+
+        return NearestClusterId;
+    }
+
 
 
 
