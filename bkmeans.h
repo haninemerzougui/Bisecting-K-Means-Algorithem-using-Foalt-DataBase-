@@ -26,7 +26,7 @@ public:
     point(int id, int *line)
     {
         pointId = id;
-        values = Matrice.getValue(line);
+        values = Matrice->getValue(line);
         dimensions = values.size();
         clusterId = 0; // Initially not assigned to any cluster
     }
@@ -49,7 +49,8 @@ class cluster {
     vector<double> centroid;
     vector<point> points;
     public:
-    void addPoint(point p);  
+    void addPoint(point p);
+    cluster(Matrice* mat, int clusterId, point centroid);
         
         
         

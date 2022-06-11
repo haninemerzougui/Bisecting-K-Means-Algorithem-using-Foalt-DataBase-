@@ -114,42 +114,52 @@ cluster :: cluster(Matrice* mat, int clusterId, point centroid){
         return false;
     }
 
-    void removeAllPoints() { points.clear(); }
+    void removeAllPoints() { 
+        points.clear(); }
 
-    int getId() { return clusterId; }
+    int getId() {
+        return clusterId; }
 
-    Point getPoint(int pos) { return points[pos]; }
+    point :: getPoint(int pos) { 
+        return points[pos]; }
 
-    int getSize() { return points.size(); }
+    int getSize() { 
+        return points.size(); }
 
-    double getCentroidByPos(int pos) { return centroid[pos]; }
+    double getCentroidByPos(int pos) { 
+        return centroid[pos]; }
 
-    void setCentroidByPos(int pos, double val) { this->centroid[pos] = val; }
+    void setCentroidByPos(int pos, double val) {
+        this->centroid[pos] = val; }
     
-
-
-
-
-
 
 
 
 }
 
 
-struct point{
+point :: point(int id, int *line){
+    {
+        pointId = id;
+        dimensions = values.size();
+        clusterId = 0; // Initially not assigned to any cluster
+    }
 
-    
- int getDimensions() { return dimensions; }
+    int point :: getDimensions() {
+        return dimensions; }
 
-    int getCluster() { return clusterId; }
+    int point :: getCluster() {
+        return clusterId; }
 
-    int getID() { return pointId; }
+    int point :: getID() {
+        return pointId; }
 
-    void setCluster(int val) { clusterId = val; }
+    void point :: setCluster(int val) {
+        clusterId = val; }
 
-    double getVal(int pos) { return values[pos]; }
-};
+    double point :: getVal(int pos) {
+        return values[pos]; }
+}
 
 
 
