@@ -10,8 +10,8 @@ class Matrice {
     Matrice(int nbl, int nbc, float *Vtemp); //constructor
     Matrice(char * base);     //convert a text file to a Inmatrix
     float outMatrice(char * base);
-    float getValue(float *vect);  //get value from the matrix
-    float setValue(float *value); //set value in the matrix
+    float getValue(int i, int j);  //get value from the matrix
+    float setValue(int i, int j); //set value in the matrix
     int getH();
     int getW();
 };
@@ -26,7 +26,7 @@ public:
     point(int id, int *line)
     {
         pointId = id;
-        values = getValue(line);
+        values = getValue(int i, int j);
         dimensions = values.size();
         clusterId = 0; // Initially not assigned to any cluster
     }

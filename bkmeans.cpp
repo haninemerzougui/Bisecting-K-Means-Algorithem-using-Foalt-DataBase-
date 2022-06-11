@@ -67,13 +67,11 @@ float Matrice :: outMatrice(char * base){
 
 
 //function to get values from the matrix
-float Matrice :: getValue(float *vect){
-    int i,j;
+float Matrice :: getValue(int i, int j){
     return vect[i*sizeW + j];
 }
 //function to set values in the matrix
-float Matrice :: setValue(float *value){
-    int i, j;
+float Matrice :: setValue(int i, int j){
     return vect[i*sizeW + j];
 }
 //function to get sizeH
