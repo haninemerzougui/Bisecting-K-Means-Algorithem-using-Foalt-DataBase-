@@ -16,7 +16,7 @@ class Matrice {
     int getW();
 };
 
-class point{
+class point:public Matrice{
 private:
     int pointId, clusterId;
     int dimensions;
