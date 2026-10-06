@@ -324,7 +324,7 @@ void bkmeans :: run(vector<point> &all_points){
             }
         }
         cout << "split a cluster of " << clusters[pos].getSize() << " points"
-             << ") -> " << best1.getSize() << " + " << best2.getSize() << endl;
+             << " -> " << best1.getSize() << " + " << best2.getSize() << endl;
 
         //replace the old cluster by the 2 new ones
         clusters.erase(clusters.begin() + pos);
