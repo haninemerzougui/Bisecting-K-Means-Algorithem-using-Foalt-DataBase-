@@ -7,7 +7,7 @@ using namespace std;
 int main(){
     srand(time(NULL));
     //create matrix containing txt file
-    Matrice * mat = new Matrice("base.txt");
+    Matrice * mat = new Matrice("data/base.txt");
     if(mat->getH() == 0){
         delete mat;
         return 1;
